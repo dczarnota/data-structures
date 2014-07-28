@@ -40,31 +40,33 @@ treePrototype.insert = function(value){
 };
 
 treePrototype.contains = function(target){
-	// var result = false;
-	// var parent = this;
-
-	// (this.value === target) ? true : parent.contains(target);
-
-	// return false;
-
 	var node = this;
 	var result = false;
+	
 	var checkNode = function(node, target){
 		if(node.value === target){
 			result = true;
 			return result;
 		}
-		// check left child
-		checkNode(node, target);
-		node = this.right.value;
-		checkNode(node, target);
-		return result;
 
-		//check right child
+		if(node.right === null && node.left === null && node.value !== target){
+			return result;
+		}
+
+		if(node.value < target){
+			node = node.right;
+			checkNode(node, target);
+		}
+
+		if(node.value > target){
+			node = node.left;
+			checkNode(node, target);
+		}
+
+		return result;
 	};
 
-	checkNode(node, target);
-	return result;
+	return checkNode(node, target);
 };
 
 treePrototype.depthFirstLog = function(callback){

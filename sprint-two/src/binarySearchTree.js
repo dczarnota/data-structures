@@ -42,7 +42,7 @@ treePrototype.insert = function(value){
 treePrototype.contains = function(target){
 	var node = this;
 	var result = false;
-	
+
 	var checkNode = function(node, target){
 		if(node.value === target){
 			result = true;
@@ -70,6 +70,16 @@ treePrototype.contains = function(target){
 };
 
 treePrototype.depthFirstLog = function(callback){
+	var node = this;
+
+	callback(node.value);
+	if(node.right){
+		node.right.depthFirstLog(callback);
+	}
+
+	if(node.left){
+		node.left.depthFirstLog(callback);
+	}
 
 };
 
